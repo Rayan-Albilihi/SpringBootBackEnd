@@ -1,4 +1,4 @@
-package com.example.demo.firstProj;
+package com.example.demo.entitiy;
 
 import lombok.*;
 
