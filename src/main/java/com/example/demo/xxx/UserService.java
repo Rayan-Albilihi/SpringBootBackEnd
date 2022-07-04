@@ -1,6 +1,5 @@
-package com.example.demo.service;
+package com.example.demo.xxx;
 
-import com.example.demo.entitiy.User;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;

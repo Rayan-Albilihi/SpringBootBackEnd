@@ -1,7 +1,5 @@
-package com.example.demo.controller;
+package com.example.demo.xxx;
 
-import com.example.demo.entitiy.User;
-import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
