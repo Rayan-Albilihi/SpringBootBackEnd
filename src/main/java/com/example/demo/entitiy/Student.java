@@ -1,4 +1,4 @@
-package com.example.demo.entity;
+package com.example.demo.entitiy;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -27,3 +27,4 @@ public class Student {
     @Column(name = "create_at")
     private Date create_at;
 }
+//update
