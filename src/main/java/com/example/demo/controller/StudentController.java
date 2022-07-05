@@ -1,9 +1,10 @@
 package com.example.demo.controller;
 
 
+import com.example.demo.DTO.StudentDTO;
 import com.example.demo.repository.StudentRepository;
 import com.example.demo.entitiy.Student;
-import com.example.demo.service.StudentService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,24 +14,31 @@ import org.springframework.web.bind.annotation.*;
 public class StudentController {
 
     private final StudentRepository studentRepository;
-    private StudentService studentService;
+
 
     @Autowired
-    public StudentController(StudentRepository studentRepository) {
-        this.studentRepository = studentRepository;
-    }
+    public StudentController(StudentRepository studentRepository) {this.studentRepository = studentRepository;}
 
     @GetMapping
-    public ResponseEntity getAllProducts(){
-        return  ResponseEntity.ok(this.studentRepository.findAll());
+    public ResponseEntity getAllStudents(){return  ResponseEntity.ok(this.studentRepository.findAll());}
+
+    @PostMapping(path = "api/student/dto")
+    public ResponseEntity<StudentDTO> Create(@RequestBody Student student){
+        studentRepository.save(student);
+        StudentDTO studentDTO = new StudentDTO();
+        BeanUtils.copyProperties(student,studentDTO);
+        return  ResponseEntity.ok(studentDTO);
     }
-    @PostMapping
+
+    @PostMapping(path = "/api/student")
     public void registerNewStudent(@RequestBody Student student){
-        studentService.addNewStudent(student);
+        studentRepository.save(student);
     }
-//    @DeleteMapping
-//    public ResponseEntity setProducts(){
-//        return  ResponseEntity.ok(this.studentRepository.deleteAll();));
+
+
+    //    @DeleteMapping
+//    public void deleteStudent(Student student){
+//        studentRepository.delete(student);
 //    }
 
 }

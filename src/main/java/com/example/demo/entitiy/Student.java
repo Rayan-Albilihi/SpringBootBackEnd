@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Setter
@@ -27,7 +29,8 @@ public class Student {
     private  String email;
 //حولت نوع الايميل الى سترنق لانه يرفض بالداتابيس
     @Column(name = "create_at")
-    private Date create_at;
+    @Temporal(TemporalType.DATE)
+    private Date create_at = new Date(System.currentTimeMillis());
 
     public Student(String first_name, String last_name, String email, Date create_at) {
         this.first_name = first_name;
