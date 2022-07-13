@@ -53,4 +53,14 @@ public class StudentController {
 //        studentRepository.delete(student);
 //    }
 
+
+//    @PostMapping(path = "/createP")             //to post entity being private using DTO
+//    public ResponseEntity<StudentDTO> Create(@RequestBody Student student){
+//        if (student != null){
+//            studentRepository.save(student);
+//            StudentDTO studentDTO = new StudentDTO();
+//            BeanUtils.copyProperties(student,studentDTO);
+//            return  ResponseEntity.ok(studentDTO);
+//        }else return ResponseEntity.notFound().build();}
+
 }
