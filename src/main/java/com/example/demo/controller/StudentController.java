@@ -22,7 +22,7 @@ public class StudentController {
     @GetMapping
     public ResponseEntity getAllStudents(){return  ResponseEntity.ok(this.studentRepository.findAll());}
 
-    @PostMapping(path = "api/student/dto")
+    @PostMapping(path = "/createP")//to post entity being private
     public ResponseEntity<StudentDTO> Create(@RequestBody Student student){
         studentRepository.save(student);
         StudentDTO studentDTO = new StudentDTO();
@@ -30,7 +30,7 @@ public class StudentController {
         return  ResponseEntity.ok(studentDTO);
     }
 
-    @PostMapping(path = "/api/student")
+    @PostMapping(path = "/createNP") //to post entity without being private
     public void registerNewStudent(@RequestBody Student student){
         studentRepository.save(student);
     }
