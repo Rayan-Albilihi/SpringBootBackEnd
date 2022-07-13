@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
+import java.util.Optional;
+
 @RestController
 @RequestMapping(path = "api/student")
 public class StudentController {
@@ -19,10 +22,19 @@ public class StudentController {
     @Autowired
     public StudentController(StudentRepository studentRepository) {this.studentRepository = studentRepository;}
 
-    @GetMapping
+    @GetMapping(path = "/get")                   //return all entity in normal way
     public ResponseEntity getAllStudents(){return  ResponseEntity.ok(this.studentRepository.findAll());}
 
-    @PostMapping(path = "/createP")//to post entity being private
+    @GetMapping(path = "/getParam/{id}")         //return specific Path by using @PathVariable
+    public Optional<Student> getStudentByParam(@PathVariable Long id){
+        return this.studentRepository.findById(id);
+    }
+
+    @GetMapping(path = "/getPath")              //return specific Param by using @RequestParam
+    public Optional<Student> getStudentByPath(@RequestParam Long id){
+        return this.studentRepository.findById(id);
+    }
+    @PostMapping(path = "/createP")             //to post entity being private using DTO
     public ResponseEntity<StudentDTO> Create(@RequestBody Student student){
         studentRepository.save(student);
         StudentDTO studentDTO = new StudentDTO();
@@ -30,7 +42,7 @@ public class StudentController {
         return  ResponseEntity.ok(studentDTO);
     }
 
-    @PostMapping(path = "/createNP") //to post entity without being private
+    @PostMapping(path = "/createNP")        //to post entity without being private without using DTO
     public void registerNewStudent(@RequestBody Student student){
         studentRepository.save(student);
     }
