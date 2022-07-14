@@ -1,4 +1,4 @@
-package com.example.demo.firstProj;
+package com.example.demo.x;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,3 +23,4 @@ public class UserController {
     return userService.getUser();
     }
 }
+//update

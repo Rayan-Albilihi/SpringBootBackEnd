@@ -1,6 +1,5 @@
-package com.example.demo.firstProj;
+package com.example.demo.x;
 
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -19,3 +18,4 @@ public class UserService {
         );
     }
 }
+//update

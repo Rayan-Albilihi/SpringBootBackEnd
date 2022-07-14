@@ -1,4 +1,4 @@
-package com.example.demo.firstProj;
+package com.example.demo.x;
 
 import lombok.*;
 
@@ -33,3 +33,4 @@ public class User {
         this.age = age;
     }
 }
+//update
