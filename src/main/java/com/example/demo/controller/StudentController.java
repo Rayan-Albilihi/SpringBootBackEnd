@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-
 import com.example.demo.DTO.StudentDTO;
 import com.example.demo.repository.StudentRepository;
 import com.example.demo.entitiy.Student;
@@ -48,7 +47,7 @@ public class StudentController {
 
 
     @DeleteMapping(path = "/deleteAll")        //to delete all entity
-    public void deleteAllStudent(Student student){ studentRepository.deleteAll(); }
+    public void deleteAllStudent(){ studentRepository.deleteAll(); }
 
     @DeleteMapping(path = "/deleteByParam/{id}")   //to delete id entity by choosing Param
     public void deleteStudentByParam (@PathVariable Long id){ this.studentRepository.deleteById(id); }

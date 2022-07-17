@@ -3,10 +3,9 @@ package com.example.demo.entitiy;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Setter
@@ -19,15 +18,21 @@ public class Student {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotNull(message = "First name Should not be null")
+    @NotEmpty(message = "First name Should not be empty")
     @Column(name = "first_name")
     private String first_name;
 
+    @NotNull(message = "Last name Should not be null")
+    @NotEmpty(message = "Last name Should not be empty")
     @Column(name = "last_name")
     private String last_name;
 
+    @NotNull(message = "Email Should not be null")
+    @NotEmpty(message = "Email Should not be empty")
     @Column(name = "email", unique = true)
-    private  String email;
-//حولت نوع الايميل الى سترنق لانه يرفض بالداتابيس
+    private  String email;                  //حولت نوع الايميل الى سترنق لانه يرفض بالداتابيس
+
     @Column(name = "create_at")
     @Temporal(TemporalType.DATE)
     private Date create_at = new Date(System.currentTimeMillis());
