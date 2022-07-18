@@ -6,7 +6,8 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.time.LocalDateTime;
+
 
 @Setter
 @Getter
@@ -34,10 +35,9 @@ public class Student {
     private  String email;                  //حولت نوع الايميل الى سترنق لانه يرفض بالداتابيس
 
     @Column(name = "create_at")
-    @Temporal(TemporalType.DATE)
-    private Date create_at = new Date(System.currentTimeMillis());
+    private LocalDateTime create_at;
 
-    public Student(String first_name, String last_name, String email, Date create_at) {
+    public Student(String first_name, String last_name, String email, LocalDateTime create_at) {
         this.first_name = first_name;
         this.last_name = last_name;
         this.email = email;
@@ -45,4 +45,3 @@ public class Student {
     }
 
 }
-//update
