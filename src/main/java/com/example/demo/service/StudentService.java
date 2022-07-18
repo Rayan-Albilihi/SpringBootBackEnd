@@ -3,11 +3,12 @@ package com.example.demo.service;
 import com.example.demo.DTO.StudentDTO;
 import com.example.demo.entitiy.Student;
 import com.example.demo.repository.StudentRepository;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentService {
@@ -21,51 +22,68 @@ public class StudentService {
     }
 
 
-//    @GetMapping(path = "/getAll")                   //return all entity in normal way
-    public ResponseEntity getAllStudents(){
-        return ResponseEntity.ok(this.studentRepository.findAll());
-    }
+//    public ResponseEntity getStudents(){
+//        return ResponseEntity.ok(this.studentRepository.findAll());
+//    }
 
-//    @GetMapping(path = "/getParam/{id}")         //return specific id entity by using @PathVariable
-    public Optional<Student> getStudentByParam(Long id){
+    public Optional<Student> getStudentById_UsingPath(Long id){
         return this.studentRepository.findById(id);
     }
 
-//    @GetMapping(path = "/getPath")              //return specific Param by using @RequestParam
-    public Optional<Student> getStudentByPath(Long id){
+    public Optional<Student> getStudentById_UsingParam(Long id){
         return this.studentRepository.findById(id);
     }
 
-//    @PostMapping(path = "/createP")             //to post entity being private using DTO
-    public ResponseEntity<StudentDTO> CreateWithDto(Student student){
-        studentRepository.save(student);
+
+
+    public List<StudentDTO> getStudent(){
+        List<Student> allStudents = studentRepository.findAll();
+        return allStudents.stream().map(this::mapDtoToEntity).collect(Collectors.toList());
+    }
+    public StudentDTO mapDtoToEntity(Student student) {
         StudentDTO studentDTO = new StudentDTO();
-        BeanUtils.copyProperties(student,studentDTO);
-        return  ResponseEntity.ok(studentDTO);
+        studentDTO.setEmail(student.getEmail());
+        studentDTO.setFirstName(student.getFirst_name());
+        studentDTO.setLastName(student.getLast_name());
+        return studentDTO;
     }
+
+    public StudentDTO createStudent(StudentDTO studentDTO){
+        studentRepository.save(mapEntityToDto(studentDTO));
+        return  studentDTO;
+    }
+
+    public Student mapEntityToDto(StudentDTO studentDTO){
+    Student studentEntity = new Student();
+    studentEntity.setEmail(studentDTO.getEmail());
+    studentEntity.setFirst_name(studentDTO.getFirstName());
+    studentEntity.setLast_name(studentDTO.getLastName());
+    studentEntity.setCreate_at(LocalDateTime.now());
+        return  studentEntity;
+    }
+
+
 
 //    @PostMapping(path = "/createNP")        //to post entity without being private without using DTO
-    public void CreateWithoutDto(Student student){
-        studentRepository.save(student);
-    }
+//    public void CreateWithoutDto(Student student){
+//        studentRepository.save(student);
+//    }
 
 
-//    @DeleteMapping(path = "/deleteAll")        //to delete all entity
-    public String deleteAllStudent(){
+    public String removeAllStudent(){
         studentRepository.deleteAll();
-        return "all users deleted.";
+        return "all students deleted.";
     }
 
-//    @DeleteMapping(path = "/deleteByParam/{id}")   //to delete id entity by choosing Param
-    public String deleteStudentByParam (Long id){
+    public String deleteStudentById_UsingParam(Long id){
         this.studentRepository.deleteById(id);
-        return "User with "+id+" has been deleted.";
+        return "Student with "+id+" has been deleted.";
     }
 
 //    @DeleteMapping(path = "/deleteByPath")   //to delete entity by choosing path
-    public String deleteStudentByPath(Long id){
+    public String deleteStudentById_UsingPath(Long id){
         this.studentRepository.deleteById(id);
-        return "User with "+id+" has been deleted.";
+        return "Student with "+id+" has been deleted.";
     }
 
     public Student updateStudent(Student student){
