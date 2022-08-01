@@ -94,6 +94,9 @@ public class StudentService {
         return studentRepository.save(existingStudent);
     }
 
+    public Student SearchByQuery(String student){
+       return studentRepository.findStudentByEmail(student);
+    }
 
 }
 

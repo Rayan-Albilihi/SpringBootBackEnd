@@ -50,6 +50,11 @@ public class StudentController {
         return new ResponseEntity<>(student, HttpStatus.CREATED);
     }
 
+    @GetMapping(path = "/searchStudent")
+    public ResponseEntity<Student> testSearchByQuery(@RequestParam("email") String email){
+        return new ResponseEntity<>(studentService.SearchByQuery(email),HttpStatus.CREATED);
+    }
+
 //    @PostMapping(path = "/createNP")        //to post entity without being private without using DTO
 //    public void SaveWithoutDto(@RequestBody Student student){
 //        studentService.CreateWithoutDto(student);
